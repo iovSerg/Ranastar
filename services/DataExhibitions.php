@@ -4,9 +4,11 @@ require 'model/Exhibitions.php';
 class DataExhibitions
 {
     private $exhibitions;
+    private $lang_key;
 
-    public function __construct()
+    public function __construct($lang_key)
     {
+        $this->lang_key = $lang_key;
         $this->GetDataSQL();
     }
     private function GetDataSQL()
@@ -23,11 +25,13 @@ class DataExhibitions
         foreach ($result_ex as $row)
         {
 
-            $id = $row ['id'];
+            $id = $row ['date'];
 
             $sql = "SELECT path FROM gallary_exhibitions WHERE key_exhibitions = '$id';";
 
             $result_path =  $mysqli->query($sql);
+
+
 
             $path = array();
             foreach($result_path as $item) {
@@ -35,7 +39,7 @@ class DataExhibitions
             }
 
 
-            $ex = new Exhibitions($row['id'],$row['name_city'],$row['name_ex'],$row['about'],$path);
+            $ex = new Exhibitions($row['id'],$row['name_' . $this->lang_key],$row['name_ex'],$row['date'],$row['article_id'],$path);
             $path = null;
 
             $this->exhibitions[]=$ex;

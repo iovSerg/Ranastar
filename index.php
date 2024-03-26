@@ -11,9 +11,9 @@
     require "services/DataDogs.php";
     require "services/DataExhibitions.php";
 
-    $dataEx = new DataExhibitions();
     $dataText = new DataLang();
     $dataDogs = new DataDogs($dataText->GetLangKey());
+    $dataEx = new DataExhibitions($dataText->GetLangKey());
 
     $dogs = $dataDogs->GetDogs();
 
@@ -187,7 +187,7 @@
                                     </div>
                                     <p>
                                         <i class="bi bi-quote quote-icon-left"></i>
-                                        <span><?php echo $dog->GetAbout(); ?></span>
+                                        <span><?php echo $dataText->GetText($dog->GetAbout()); ?></span>
                                         <i class="bi bi-quote quote-icon-right"></i>
                                     </p>
                                 </div>
@@ -421,7 +421,6 @@
                     $filters_ex = array();
                     $portfolioItems_ex = array();
 
-
                     foreach ($ex as $item) {
 
                         $filters_ex[".filter-" . $item->GetID()] = $item->GetCity();
@@ -429,9 +428,9 @@
                         foreach ($item->GetPath() as $path) {
                             $portfolioItems_ex[] = array(
                                 "src" => $path,
-                                "title" => $item->GetName(),
+                                "title" => $item->GetName() ." ".$item->GetDate(),
                                 "filterClass" => $item->GetID(),
-                                "about" => $item->GetAbout()
+                                "article" => $item->GetArticle()
                             );
                         }
                     }
@@ -471,7 +470,7 @@
                         {
                             $flag = true;
                             echo "<div  class=\"col-lg-4 col-md-6 portfolio-item isotope-item filter-{$filterClass} {$isActiveClass}\">";
-                            echo "<h4>{$item['about']}</h4>";
+                            echo "<h4>{$dataText->GetText($item['article'])}</h4>";
                             echo "</div>";
                         }
                         else

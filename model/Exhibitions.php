@@ -3,26 +3,27 @@ class Exhibitions
 {
     private $id;
     private $nameEx;
-    private $about;
+    private $article_id;
     private $date;
     private $city;
     private $path;
 
-    public  function __construct($id,$city,$nameEx,$about,$path)
+    public  function __construct($id,$city,$nameEx,$date,$article_id,$path)
     {
         $this->id = $id;
         $this->city = $city;
         $this->nameEx = $nameEx;
-        $this->about = $about;
+        $this->date = $date;
+        $this->article_id= $article_id;
         $this->path = $path;
     }
     public  function GetID()
     {
         return $this->id;
     }
-    public function GetAbout()
+    public function GetArticle()
     {
-        return $this->about;
+        return $this->article_id;
     }
     public function GetName()
     {
