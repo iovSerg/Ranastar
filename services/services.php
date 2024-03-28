@@ -6,7 +6,7 @@ $database = "ranastar";
 $defaultLang =  ['2'=>'en'];
 ?>
 
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -47,19 +47,19 @@ $defaultLang =  ['2'=>'en'];
     <div class="isotope-layout" data-layout="masonry" data-sort="original-order">
         <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
             <?php
-            // Ваши данные для фильтров
+/*            // Ваши данные для фильтров
             $filters = ['all', 'filter1', 'filter2', 'filter3']; // Пример фильтров
             $activeFilter = 'all'; // Активный фильтр по умолчанию
             foreach ($filters as $filter) {
                 $class = $filter === $activeFilter ? 'filter-active' : '';
                 echo "<li class='filter-button $class' data-filter='$filter'>$filter</li>";
             }
-            ?>
+            */?>
         </ul>
 
         <div class="gallery">
             <?php
-            // Ваши изображения для галереи
+/*            // Ваши изображения для галереи
             $images = [
                 ['src' => 'img/1.jpg', 'filter' => 'filter1'],
                 ['src' => 'img/2.jpg', 'filter' => 'filter2'],
@@ -69,7 +69,7 @@ $defaultLang =  ['2'=>'en'];
             foreach ($images as $image) {
                 echo "<img src='{$image['src']}' class='gallery-image " . ($image['filter'] !== $activeFilter ? 'hidden' : '') . "' data-filter='{$image['filter']}'>";
             }
-            ?>
+            */?>
         </div>
     </div>
 </div>
@@ -100,4 +100,4 @@ $defaultLang =  ['2'=>'en'];
 
 </body>
 </html>
-
+-->

@@ -203,6 +203,9 @@ section {
   }
 
   .navmenu ul {
+
+
+
     margin: 0;
     padding: 0;
     display: flex;
@@ -922,6 +925,9 @@ section,
   }
   .hero p {
     font-size: 18px;
+  }
+  ul {
+    list-style-type: none;
   }
 }
 
