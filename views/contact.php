@@ -70,7 +70,7 @@
                             <div class="error-message"></div>
                             <div class="sent-message">Your message has been sent. Thank you!</div>
 
-                            <button >Send</button>
+                            <button >Технические работы</button>
                         </div>
 
                     </div>

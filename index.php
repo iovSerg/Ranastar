@@ -59,8 +59,11 @@
 <?php
         require 'views/description.php';
         require 'views/faq.php';
-       require 'views/portfolio.php';
+        require 'views/portfolio.php';
+        require 'views/puppies.php';
         require 'views/exhibitions.php';
+        require 'views/graduates.php';
+        require 'views/contact.php';
 ?>
 
 

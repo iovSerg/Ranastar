@@ -10,16 +10,13 @@
                 <?php
 
                 $puppies= array();
-                foreach ($dogs as $item) {
+                foreach ($db->GetAllDogs() as $item) {
 
                     if($item->GetName() == 'PUPPIES')
                     {
                         $puppies = $item->GetPaths();
 
                     }
-
-
-
                 }
                 foreach ($puppies as $puppy) {
 
@@ -39,6 +36,5 @@
             </div>
         </div>
     </div>
-
 
 </section>
