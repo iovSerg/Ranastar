@@ -5,9 +5,9 @@
         <div class="row align-items-center">
 
             <div class="col-lg-5 info" data-aos="fade-up" data-aos-delay="100">
-                <h3><?php echo $data->GetText('MAIN_TITLE'); ?></h3>
+                <h3><?php echo $db->GetText('MAIN_TITLE'); ?></h3>
                 <p>
-                    <?php echo $data->GetText('MAIN_ABOUT'); ?>
+                    <?php echo $db->GetText('MAIN_ABOUT'); ?>
                 </p>
             </div>
 
@@ -57,7 +57,7 @@
                                     </div>
                                     <p>
                                         <i class="bi bi-quote quote-icon-left"></i>
-                                        <span><?php echo $data->GetText($dog->GetAbout()); ?></span>
+                                        <span><?php echo $db->GetText($dog->GetAbout()); ?></span>
                                         <i class="bi bi-quote quote-icon-right"></i>
                                     </p>
                                 </div>

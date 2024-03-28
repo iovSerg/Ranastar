@@ -2926,9 +2926,25 @@ section,
   border: 0;
   background-color: var(--accent-color);
   color: var(--contrast-color);
+
+
 }
 
 .blog-details .comments .reply-form .btn-primary:hover {
   color: var(--contrast-color);
   background-color: rgba(var(--accent-color-rgb), 0.8);
+}
+.selector
+{
+
+}
+
+.hidden {
+  visibility: hidden;
+
+}
+
+/* В класс "show" добавляется к отфильтрованные элементы */
+.show {
+  visibility: visible;
 }

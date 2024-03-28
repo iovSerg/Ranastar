@@ -4,7 +4,17 @@ $userPass = "Db123456!";
 $serverName = "localhost";
 $database = "ranastar";
 $defaultLang =  ['2'=>'en'];
+
+
+
+if (isset($_POST['name'])) {
+    echo 'Я получил запрос '.$_POST['name'];
+    die();
+}
 ?>
+
+
+
 
 <!--<!DOCTYPE html>
 <html lang="en">

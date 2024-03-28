@@ -4,7 +4,7 @@
         <div class="row gy-4">
             <div class="col-lg-5 col-md-12 footer-about">
                 <a href="index.html" class="logo d-flex align-items-center">
-                    <span style="color: gold"><?php echo $data->GetText('HEADER_TITLE'); ?></span>
+                    <span style="color: gold"><?php echo $db->GetText('HEADER_TITLE'); ?></span>
                 </a>
                 <div class="social-links d-flex mt-4">
 
@@ -22,12 +22,12 @@
 
 
             <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-                <?php echo $data->GetText('FOOTER_TITLE');?>
+                <?php echo $db->GetText('FOOTER_TITLE');?>
 
             </div>
 
             <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-                <?php echo $data->GetText('FOOTER_CONTACT');?>
+                <?php echo $db->GetText('FOOTER_CONTACT');?>
             </div>
         </div>
     </div>

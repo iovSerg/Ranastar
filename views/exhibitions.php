@@ -2,7 +2,7 @@
 
     <!--  Section Title -->
     <div class="container section-title" data-aos="fade-up">
-        <?php echo $data->GetText('EXHIBITIONS_TITLE');?>
+        <?php echo $db->GetText('EXHIBITIONS_TITLE');?>
     </div><!-- End Section Title -->
 
     <div class="container">
@@ -65,7 +65,7 @@
                     {
                         $flag = true;
                         echo "<div  class=\"col-lg-4 col-md-6 portfolio-item isotope-item filter-{$filterClass} {$isActiveClass}\">";
-                        echo "<h4>{$data->GetText($item['article'])}</h4>";
+                        echo "<h4>{$db->GetText($item['article'])}</h4>";
                         echo "</div>";
                     }
                     else

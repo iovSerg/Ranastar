@@ -1,6 +1,6 @@
 <section id="puppies" class="portfolio">
     <div class="container section-title" data-aos="fade-up">
-        <?php echo $data->GetText('PUPPIES_TITLE');?>
+        <?php echo $db->GetText('PUPPIES_TITLE');?>
     </div>
     <div class="container">
         <div class="isotope-layout"  data-layout="masonry"  data-sort="original-order">

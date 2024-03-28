@@ -7,6 +7,7 @@
 */
 
 document.addEventListener('DOMContentLoaded', () => {
+
   "use strict";
 
   /**
@@ -210,4 +211,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   window.addEventListener('load', aosInit);
 
+
+
 });
+
+// Выполните функцию и покажите все столбцы

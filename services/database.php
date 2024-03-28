@@ -1,5 +1,7 @@
 <?php
 require_once 'model/Dog.php';
+
+
 class DataBase
 {
     private $mysqli;
@@ -34,7 +36,10 @@ class DataBase
         $this->GetDataDogs();
         $this->mysqli->close();
     }
-
+    public function  GetLangKey()
+    {
+        return $this->lang_key;
+    }
     public function GetListLang()
     {
         return $this->lang_list;
@@ -123,7 +128,6 @@ class DataBase
 
             foreach($result_path as $item) {
                 $path[] =  $item['path'];
-
             }
 
             $dog_ = new Dog($row['id'],$row['full_name'],$row['name'],$row['article_id'],$row['gender'],$path);

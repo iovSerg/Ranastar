@@ -7,22 +7,18 @@
 
     session_start();
 
-    require "services/DataLang.php";
-    require "services/DataDogs.php";
-    require "services/DataExhibitions.php";
-    
+    require_once 'services/services.php';
+    require_once "services/DataLang.php";
+    require_once "services/DataDogs.php";
+    require_once "services/DataExhibitions.php";
 
-    $data = new DataLang();
-    $dataDogs = new DataDogs($data->GetLangKey());
-    $dataEx = new DataExhibitions($data->GetLangKey());
 
+
+
+    $db = new DataLang();
+    $dataDogs = new DataDogs($db->GetLangKey());
+    $dataEx = new DataExhibitions($db->GetLangKey());
     $dogs = $dataDogs->GetDogs();
-if(isset($_POST["name"])){
-
-    $name = $_POST["name"];
-    echo $name;
-}
-
 
 ?>
 
@@ -34,17 +30,16 @@ if(isset($_POST["name"])){
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Ranastar Grand kennel</title>
 
-    <link href="assets/img/All/icon_b.png" rel="icon">
+
+    <link href="assets/img/All/icon_b.jpg" rel="icon">
+    <link href="assets/img/All/icon_b.jpg" rel="apple-touch-icon">
+
+
 
 
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <!-- Favicons -->
-   <!-- <link href="assets/img/favicon.png" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">-->
-
-    <!-- Fonts -->
 
 
     <!-- Vendor CSS Files -->
@@ -54,7 +49,6 @@ if(isset($_POST["name"])){
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="assets/vendor/aos/aos.css" rel="stylesheet">
 
-    <!-- Template Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet">
 
 
@@ -71,7 +65,7 @@ if(isset($_POST["name"])){
 
 <?php require 'views/description.php'?>
 <?php require 'views/faq.php'?>
-<?php require 'views/portfolio.php'?>
+<?php require 'views/test.php'?>
 
 </main>
 
@@ -79,30 +73,6 @@ if(isset($_POST["name"])){
 
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-<script>
-
-    d/*ocument.addEventListener('DOMContentLoaded', function() {
-        // Обработчик клика по кнопкам фильтра
-        document.querySelectorAll('.filter-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const filter = this.getAttribute('data-filter');
-                // Показываем только изображения, соответствующие выбранному фильтру
-                document.querySelectorAll('.gallery-image').forEach(image => {
-                    if (filter === 'all' || image.getAttribute('data-filter') === filter) {
-                        image.classList.remove('hidden');
-                    } else {
-                        image.classList.add('hidden');
-                    }
-                });
-                // Помечаем выбранную кнопку как активную, а остальные - нет
-                document.querySelectorAll('.filter-button').forEach(btn => {
-                    btn.classList.remove('filter-active');
-                });
-                this.classList.add('filter-active');
-            });
-        });
-    });*/
-</script>
 
 <!-- Vendor JS Files -->
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

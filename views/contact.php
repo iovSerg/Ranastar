@@ -2,7 +2,7 @@
 
     <!--  Section Title -->
     <div class="container section-title" data-aos="fade-up">
-        <h2><?php echo $data->GetText('CONTACT_TITLE'); ?></h2>
+        <h2><?php echo $db->GetText('CONTACT_TITLE'); ?></h2>
 
     </div><!-- End Section Title -->
 
@@ -16,28 +16,28 @@
                     <div class="col-md-6">
                         <div class="info-item" data-aos="fade" data-aos-delay="200">
                             <i class="bi bi-geo-alt"></i>
-                            <?php echo $data->GetText('CONTACT_ADRESS')?>
+                            <?php echo $db->GetText('CONTACT_ADRESS')?>
                         </div>
                     </div><!-- End Info Item -->
 
                     <div class="col-md-6">
                         <div class="info-item" data-aos="fade" data-aos-delay="300">
                             <i class="bi bi-telephone"></i>
-                            <?php echo $data->GetText('CONTACT_TELEPHONE');?>
+                            <?php echo $db->GetText('CONTACT_TELEPHONE');?>
                         </div>
                     </div><!-- End Info Item -->
 
                     <div class="col-md-6">
                         <div class="info-item" data-aos="fade" data-aos-delay="400">
                             <i class="bi bi-envelope"></i>
-                            <?php echo $data->GetText('CONTACT_EMAIL');?>
+                            <?php echo $db->GetText('CONTACT_EMAIL');?>
                         </div>
                     </div><!-- End Info Item -->
 
                     <div class="col-md-6">
                         <div class="info-item" data-aos="fade" data-aos-delay="500">
                             <i class="bi bi-clock"></i>
-                            <?php echo $data->GetText('CONTACT_TIME');?>
+                            <?php echo $db->GetText('CONTACT_TIME');?>
                         </div>
                     </div><!-- End Info Item -->
 
