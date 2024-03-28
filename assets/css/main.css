@@ -2929,7 +2929,11 @@ section,
 
 
 }
+.column {
+  float: left;
+  width: 33.33%;
 
+}
 .blog-details .comments .reply-form .btn-primary:hover {
   color: var(--contrast-color);
   background-color: rgba(var(--accent-color-rgb), 0.8);

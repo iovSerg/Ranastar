@@ -5,13 +5,8 @@
             <h1 style="color: gold"><?php echo $db->GetText('HEADER_TITLE'); ?></h1>
 
         </a>
-
-        <!-- Nav Menu -->
         <nav  id="navmenu" class="navmenu">
-
-
             <ul >
-
                 <li><a href="#hero" class="active"><?php echo $db->GetText('HEADER_TOP'); ?></a></li>
                 <li><a href="#description" class="active"><?php echo $db->GetText('HEADER_HOME'); ?></a></li>
                 <li><a href="#faq" class="active"><?php echo $db->GetText('HEADER_FAQ'); ?></a></li>
@@ -23,12 +18,10 @@
                 <li class="dropdown has-dropdown" ><a href="#"><span><?php echo $db->GetText('HEADER_LANG'); ?></span> <i class="bi bi-chevron-down"></i></a>
                     <ul class="dd-box-shadow" style="left: -100%">
                         <?php
-                        foreach ($db->list_lang as $key => $value) {
+                        foreach ($db->GetListLang() as $key => $value) {
                             echo '<li><a href="#" onclick="setCookieAndAlert(\'' . $value . '\')">' . $key . '</a></li>';
                         }
                         ?>
-
-
 
                     </ul>
                 </li>
@@ -41,25 +34,6 @@
             </script>
 
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-        </nav><!-- End Nav Menu -->
-        <!--<script>
-            $(document).ready(function(){
-                $('.lang-link').click(function(e){
-                    alert("Not work");
-                    e.preventDefault();
-                    var key = $(this).data('key');
-                    $.ajax({
-                        url: 'index.php', // Путь к вашему PHP-скрипту
-                        type: 'GET',
-                        data: {key: key},
-                        success: function(response){
-                            alert(response); // Вывод результата
-                        }
-                    });
-                });
-            });
-        </script>-->
-        <!--        <a class="btn-getstarted" href="index.html#about">Get Started</a>-->
-
+        </nav>
     </div>
 </header>

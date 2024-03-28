@@ -1,5 +1,6 @@
 <?php
 require_once 'model/Dog.php';
+require_once 'model/Exhibitions.php';
 
 
 class DataBase
@@ -18,10 +19,12 @@ class DataBase
     private $lang_data;
     //Галлерея собак
     private $dogs;
+    //Выставки
+    private $exhibitions;
 
     public function __construct(){
         if (!isset($_COOKIE['language'])) {
-            $this->lang_key = $this->GetDefaultLang();
+            $this->lang_key = $this->DefaultLang();
             setcookie('language', $this->lang_key, time() + (86400 * 30), "/"); // 86400 секунд = 1 день
         }
         else
@@ -32,8 +35,9 @@ class DataBase
 
         $this->mysqli = new mysqli($this->serverName, $this->userName,$this->userPass,$this->database);
         $this->mysqli->set_charset("utf8");
-        $this->GetDataLang(); //Читать из базы данных
-        $this->GetDataDogs();
+        $this->DataLang(); //Читать из базы данных
+        $this->DataDogs();
+        $this->DataEx();
         $this->mysqli->close();
     }
     public function  GetLangKey()
@@ -48,13 +52,46 @@ class DataBase
     {
         return $this->lang_data[$key];
     }
-    public  function GetDogs()
+    public  function GetAllDogs()
     {
         return $this->dogs;
     }
+    public function GetDog($id)
+    {
+        $dog = array();
+        foreach ($this->dogs as $item) {
+            if($id==$item->GetID())
+            {
+                $dog[]=$item;
+            }
+        }
+        return $dog;
+    }
+    public function GetExhibition($id)
+    {
+        $ex = array();
+        foreach ($this->exhibitions as $item) {
+            if ($item->GetID() == $id) {
+                foreach ($item->GetPaths() as $path) {
+                    $ex[] = array(
+                        "src" => $path,
+                        "title" => $item->GetName(),
+                        "article" => $this->GetText($item->GetArticle())
+                    );
+                }
 
+
+            }
+        }
+        return $ex;
+
+    }
+    public function GetAllExhibitions()
+    {
+        return $this->exhibitions;
+    }
     //Получаем массив перевода по ключам
-    private function GetDataLang()
+    private function DataLang()
     {
        
 
@@ -97,7 +134,7 @@ class DataBase
         }
         
     }
-    private function GetDefaultLang(){
+    private function DefaultLang(){
         preg_match_all('/([a-z]{1,8}(?:-[a-z]{1,8})?)(?:;q=([0-9.]+))?/', strtolower($_SERVER["HTTP_ACCEPT_LANGUAGE"]), $matches); // Получаем массив $matches с соответствиями
         $langs = array_combine($matches[1], $matches[2]); // Создаём массив с ключами $matches[1] и значениями $matches[2]
         foreach ($langs as $n => $v)
@@ -107,11 +144,11 @@ class DataBase
         return $default_lang; // Выводим язык по умолчанию
     }
     //Перевод из файла 
-    private function GetDataText(){
+    private function DataText(){
         return parse_ini_file("system_$this->lang_key.ini");
     }
     //Коллекция собак
-    private function GetDataDogs()
+    private function DataDogs()
     {
         $sql = 'SELECT*FROM dogs';
 
@@ -137,6 +174,35 @@ class DataBase
 
         }
     }
+    //Выставки
+    private function DataEx()
+    {
+        $sql = 'SELECT*FROM exhibitions';
 
+        $result_ex = $this->mysqli->query($sql);
+
+        foreach ($result_ex as $row)
+        {
+
+            $id = $row ['date'];
+
+            $sql = "SELECT path FROM gallary_exhibitions WHERE key_exhibitions = '$id';";
+
+            $result_path =  $this->mysqli->query($sql);
+
+
+
+            $path = array();
+            foreach($result_path as $item) {
+                $path[] =  $item['path'];
+            }
+
+
+            $ex = new Exhibitions($row['id'],$row['name_' . $this->lang_key],$row['name_ex'],$row['date'],$row['article_id'],$path);
+            $path = null;
+
+            $this->exhibitions[]=$ex;
+        }
+    }
 
 }

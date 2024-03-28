@@ -37,7 +37,7 @@ class Exhibitions
     {
         return $this->city;
     }
-    public  function  GetPath()
+    public  function  GetPaths()
     {
         return $this->path;
     }

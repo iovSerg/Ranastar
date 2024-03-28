@@ -7,18 +7,11 @@
 
     session_start();
 
+
+    require_once 'services/database.php';
     require_once 'services/services.php';
-    require_once "services/DataLang.php";
-    require_once "services/DataDogs.php";
-    require_once "services/DataExhibitions.php";
 
 
-
-
-    $db = new DataLang();
-    $dataDogs = new DataDogs($db->GetLangKey());
-    $dataEx = new DataExhibitions($db->GetLangKey());
-    $dogs = $dataDogs->GetDogs();
 
 ?>
 
@@ -63,9 +56,13 @@
         <img style="" src="assets/img/background/1.jpg" alt="" data-aos="fade-in">
     </section>
 
-<?php require 'views/description.php'?>
-<?php require 'views/faq.php'?>
-<?php require 'views/test.php'?>
+<?php
+        require 'views/description.php';
+        require 'views/faq.php';
+       require 'views/portfolio.php';
+        require 'views/exhibitions.php';
+?>
+
 
 </main>
 
@@ -73,8 +70,6 @@
 
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-
-<!-- Vendor JS Files -->
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
 <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
@@ -84,7 +79,6 @@
 <script src="assets/vendor/php-email-form/validate.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
 
 </body>

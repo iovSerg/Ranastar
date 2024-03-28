@@ -34,13 +34,11 @@
 
 
                         <?php
-                        foreach ($dataDogs->GetDogs() as $dog) {
+                        foreach ($db->GetAllDogs() as $dog) {
 
                             $gender = $dog->GetGender();
                             if(!empty($gender))
                             {
-
-
                                 ?> <div class="swiper-slide">
                                 <div class="testimonial-item">
                                     <div class="d-flex">
