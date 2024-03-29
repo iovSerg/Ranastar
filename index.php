@@ -94,7 +94,15 @@
             dataType: 'json',
             data: { dog_id : c},
             success: function(response) {
-                $('#responseContainer').empty();
+
+            var flag = true;
+               response.forEach(function (item) {
+                   if (item && 'country' in item) {
+                       flag = false;
+                   }
+               })
+
+               flag ?  $('#responseContainer').empty() : $('#responseContainerGraduates').empty();
 
                 // Проходим по каждому элементу в массиве response и создаем соответствующую HTML-структуру
                 response.forEach(function(item) {
@@ -124,9 +132,11 @@
 
                     portfolioInfo.append(h4, a);
                     portfolioItem.append(img, portfolioInfo);
-                    $('#responseContainer').append(portfolioItem);
+
+                    flag ?  $('#responseContainer').append(portfolioItem) : $('#responseContainerGraduates').append(portfolioItem);
+
                 });
-                // Если вы хотели использовать $('#responseContainer').html(response);, то раскомментируйте эту строку
+
             }
         });
     }

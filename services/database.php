@@ -52,9 +52,6 @@ class DataBase
     {
         return $this->lang_list;
     }
-    public  function GetGraduates(){
-        return $this->graduates;
-    }
     public function GetText($key)
     {
         if (array_key_exists($key, $this->lang_data)) {
@@ -71,10 +68,10 @@ class DataBase
     {
         return $this->dogs_graduate;
     }
-    public function GetKennelDog($id)
+    public function GetGog($arr, $id)
     {
         $dog = array();
-        foreach ($this->dogs_kennel as $item) {
+        foreach ($arr as $item) {
             if($id==$item->GetID())
             {
                 $dog[]=$item;
@@ -84,35 +81,36 @@ class DataBase
     }
     public  function GetDogJson($id)
     {
-        $dog = $this->GetKennelDog($id);
-
+        $dog = $this->GetGog($this->dogs_kennel,$id);
         $portfolioItems = array();
 
-        foreach ($dog as $item) {
-            if(empty($item->GetCity()))
-            {
+        if (!$dog) {
+            $dog = $this->GetGog($this->dogs_graduate,$id);
+            foreach ($dog as $item)
                 foreach ($item->GetPaths() as $path) {
                     $portfolioItems[] = array(
-                        "src" => $path,
-                        "title" => $item->GetFullName(),
-                        "filterClass" => $item->GetName()
-                    );
-                }
+                    "src" => $path,
+                    "title" => $item->GetFullName(),
+                    "city" => $item->GetCity(),
+                    "country" => $item->GetCountry(),
+                    "filterClass" => $item->GetName()
+                );
             }
-            else
-            {
-                foreach ($item->GetPaths() as $path) {
-                    $portfolioItems[] = array(
-                        "src" => $path,
-                        "title" => $item->GetFullName(),
-                        "city" => $item->GetCity(),
-                        "country" => $item->SetCountry(),
-                        "filterClass" => $item->GetName()
-                    );
-                }
-            }
-
         }
+        else
+        {
+            foreach ($dog as $item) {
+
+                foreach ($item->GetPaths() as $path) {
+                    $portfolioItems[] = array(
+                        "src" => $path,
+                        "title" => $item->GetFullName(),
+                        "filterClass" => $item->GetName()
+                    );
+                }
+            }
+        }
+
         return $portfolioItems;
     }
     public function GetExhibition($id)
