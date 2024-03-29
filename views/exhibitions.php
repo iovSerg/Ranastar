@@ -71,7 +71,7 @@ require_once 'model/Exhibitions.php';
             success: function(response) {
                 $('#responseContainerEX').empty();
 
-// Создаем первый блок с данными из response
+
                 var firstPortfolioItem = $('<div>', {
                     class: 'col-lg-4 col-md-6 portfolio-item isotope-item filter-' + response[0].title
                 });
@@ -79,10 +79,10 @@ require_once 'model/Exhibitions.php';
                 var h4First = $('<h4>').text(response[0].article); // Используем значение article из response
                 firstPortfolioItem.append(h4First);
 
-// Добавляем первый блок на страницу
+
                 $('#responseContainerEX').append(firstPortfolioItem);
 
-// Добавляем остальные блоки на страницу
+
                 response.forEach(function(item, index) {
                     if (index !== 0) { // Пропускаем первый элемент, так как его уже добавили выше
                         var portfolioItem = $('<div>', {

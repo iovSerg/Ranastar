@@ -12,17 +12,16 @@ if (isset($_POST['exhibitions'])) {
     echo  $jsonData;
     die();
 }
-if (isset($_POST['dog'])) {
+if (isset($_POST['dog_id'])) {
 
-    $send = GetArray($db->GetDog($_POST['dog']));
+    $send = $db->GetDogJson($_POST['dog_id']);
     $jsonData = json_encode($send);
 
     echo  $jsonData;
     die();
 }
 
-
-function GetArray($dog)
+function GetDogArray($dog)
 {
     $portfolioItems = array();
     foreach ($dog as $item) {

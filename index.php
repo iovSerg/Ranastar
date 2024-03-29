@@ -62,7 +62,7 @@
         require 'views/portfolio.php';
         require 'views/puppies.php';
         require 'views/exhibitions.php';
-        require 'views/graduates.php';
+        require  'views/graduates.php';
         require 'views/contact.php';
 ?>
 
@@ -83,7 +83,78 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="assets/js/main.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
 
+    function filterSelection(c) {
+        console.log(c);
+        $.ajax({
+            type: "POST",
+            url: 'index.php',
+            dataType: 'json',
+            data: { dog_id : c},
+            success: function(response) {
+                $('#responseContainer').empty();
+
+                // Проходим по каждому элементу в массиве response и создаем соответствующую HTML-структуру
+                response.forEach(function(item) {
+                    var portfolioItem = $('<div >', {
+                        class: 'col-lg-4 col-md-6 portfolio-item isotope-item filter-' + item.filterClass + (item.isActive ? ' active' : '')
+                    });
+
+                    var img = $('<img>', {
+                        src: item.src,
+                        class: 'img-fluid',
+                        alt: ''
+                    });
+
+                    var portfolioInfo = $('<div>', {
+                        class: 'portfolio-info'
+                    });
+
+                    var h4 = $('<h4>').text(item.title);
+
+                    var a = $('<a>', {
+                        href: item.src,
+                        'data-gallery': 'portfolio-gallery-' + item.filterClass,
+                        class: 'glightbox preview-link'
+                    }).append($('<i>', {
+                        class: 'bi bi-zoom-in'
+                    }));
+
+                    portfolioInfo.append(h4, a);
+                    portfolioItem.append(img, portfolioInfo);
+                    $('#responseContainer').append(portfolioItem);
+                });
+                // Если вы хотели использовать $('#responseContainer').html(response);, то раскомментируйте эту строку
+            }
+        });
+    }
+    $(document).ready(function() {
+        // Плавное появление элементов после загрузки страницы
+        $('.portfolio-item').each(function(index) {
+            var $item = $(this);
+            setTimeout(function() {
+                $item.addClass('loaded');
+            }, 100 * index); // Задержка для каждого элемента
+        });
+    });
+    $(document).ready(function() {
+        // Находим высоту содержимого внутри контейнера и применяем ее к контейнеру
+        function adjustContainerHeight() {
+            var contentHeight = $('#responseContainer').height(); // Получаем высоту содержимого
+            $('#responseContainer').css('min-height', contentHeight); // Применяем высоту к контейнеру
+        }
+
+        // Вызываем функцию для коррекции высоты при загрузке страницы
+        adjustContainerHeight();
+
+        // Вызываем функцию для коррекции высоты при изменении размера окна
+        $(window).resize(function() {
+            adjustContainerHeight();
+        });
+    });
+</script>
 </body>
 
 </html>

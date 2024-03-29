@@ -34,10 +34,10 @@
 
 
                         <?php
-                        foreach ($db->GetAllDogs() as $dog) {
+                        foreach ($db->GetKennelDogs() as $dog) {
 
                             $gender = $dog->GetGender();
-                            if(!empty($gender))
+                            if(!empty($gender) && strcasecmp($gender,'graduate'))
                             {
                                 ?> <div class="swiper-slide">
                                 <div class="testimonial-item">

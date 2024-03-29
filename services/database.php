@@ -18,9 +18,13 @@ class DataBase
     private $lang_list;//Список отображаемых языков
     private $lang_data;
     //Галлерея собак
-    private $dogs;
+    private $dogs_kennel;
+    private  $dogs_graduate;
+
     //Выставки
     private $exhibitions;
+    //Выпускники
+    private $graduates;
 
     public function __construct(){
         if (!isset($_COOKIE['language'])) {
@@ -48,24 +52,68 @@ class DataBase
     {
         return $this->lang_list;
     }
+    public  function GetGraduates(){
+        return $this->graduates;
+    }
     public function GetText($key)
     {
-        return $this->lang_data[$key];
+        if (array_key_exists($key, $this->lang_data)) {
+            return $this->lang_data[$key];
+        } else {
+            return ""; // Возвращаем какое-то стандартное значение или сообщение
+        }
     }
-    public  function GetAllDogs()
+    public  function GetKennelDogs()
     {
-        return $this->dogs;
+        return $this->dogs_kennel;
     }
-    public function GetDog($id)
+    public  function GetGraduateDogs()
+    {
+        return $this->dogs_graduate;
+    }
+    public function GetKennelDog($id)
     {
         $dog = array();
-        foreach ($this->dogs as $item) {
+        foreach ($this->dogs_kennel as $item) {
             if($id==$item->GetID())
             {
                 $dog[]=$item;
             }
         }
         return $dog;
+    }
+    public  function GetDogJson($id)
+    {
+        $dog = $this->GetKennelDog($id);
+
+        $portfolioItems = array();
+
+        foreach ($dog as $item) {
+            if(empty($item->GetCity()))
+            {
+                foreach ($item->GetPaths() as $path) {
+                    $portfolioItems[] = array(
+                        "src" => $path,
+                        "title" => $item->GetFullName(),
+                        "filterClass" => $item->GetName()
+                    );
+                }
+            }
+            else
+            {
+                foreach ($item->GetPaths() as $path) {
+                    $portfolioItems[] = array(
+                        "src" => $path,
+                        "title" => $item->GetFullName(),
+                        "city" => $item->GetCity(),
+                        "country" => $item->SetCountry(),
+                        "filterClass" => $item->GetName()
+                    );
+                }
+            }
+
+        }
+        return $portfolioItems;
     }
     public function GetExhibition($id)
     {
@@ -150,28 +198,55 @@ class DataBase
     //Коллекция собак
     private function DataDogs()
     {
-        $sql = 'SELECT*FROM dogs';
-
-        $result_dog = $this->mysqli->query($sql);
-
-
-        foreach ($result_dog as $row)
+        try
         {
+            $sql = 'SELECT*FROM dogs';
 
-            $id = $row ['id'];
-            $sql = "SELECT path FROM gallary WHERE key_dog = '$id';";
+            $result_dog = $this->mysqli->query($sql);
 
-            $result_path =  $this->mysqli->query($sql);
 
-            foreach($result_path as $item) {
-                $path[] =  $item['path'];
+            foreach ($result_dog as $row)
+            {
+
+                $id = $row ['id'];
+                $sql = "SELECT path FROM gallary WHERE key_dog = '$id';";
+
+                $result_path =  $this->mysqli->query($sql);
+
+                foreach($result_path as $item) {
+                    $path[] =  $item['path'];
+                }
+
+                $dog_ = new Dog($row['id'],$row['full_name'],$row['name'],$row['article_id'],$row['gender'],$path);
+                if($dog_->GetGender() == 'graduate')
+                {
+
+                    $sql = "SELECT * FROM `graduates` WHERE id = {$id};";
+                    $gr = $this->mysqli->query($sql);
+
+                    foreach ($gr as $item)
+                    {
+                        $dog_->SetCity($item['city']);
+                        $dog_ ->SetCountry($item['country']);
+                    }
+
+                    $this->dogs_graduate[] = $dog_;
+                }
+                else
+                {
+
+                    $this->dogs_kennel[] = $dog_;
+                }
+
+
+                $path = null;
+
+
             }
-
-            $dog_ = new Dog($row['id'],$row['full_name'],$row['name'],$row['article_id'],$row['gender'],$path);
-            $path = null;
-            $this->dogs[] = $dog_;
-
-
+        }
+        catch (Exception $ex)
+        {
+            echo  $ex->getMessage();
         }
     }
     //Выставки

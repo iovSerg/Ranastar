@@ -10,7 +10,7 @@
                 <?php
 
                 $puppies= array();
-                foreach ($db->GetAllDogs() as $item) {
+                foreach ($db->GetKennelDogs() as $item) {
 
                     if($item->GetName() == 'PUPPIES')
                     {
