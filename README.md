@@ -1,1 +1,1 @@
-[https:/](http://ranastar.com/)http://ranastar.com/
+https://ranastar.com/
