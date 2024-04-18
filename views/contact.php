@@ -4,7 +4,7 @@
     <div class="container section-title" data-aos="fade-up">
         <h2><?php echo $db->GetText('CONTACT_TITLE'); ?></h2>
 
-    </div><!-- End Section Title -->
+    </div>
 
     <div class="container" data-aos="fade-up" data-aos-delay="100">
 
@@ -46,8 +46,8 @@
             </div>
 
             <div class="col-lg-6">
-                <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-                    <div class="row gy-4">
+`                <form id="myForm" action="/forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+`                    <div class="row gy-4">
 
                         <div class="col-md-6">
                             <input type="text" name="name" class="form-control" placeholder="Your Name" required>
@@ -59,6 +59,7 @@
 
                         <div class="col-md-12">
                             <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+                            <input type="hidden" name="send" value="<?php $db->GetText("CONTACT_SEND") ?>">
                         </div>
 
                         <div class="col-md-12">
@@ -70,7 +71,7 @@
                             <div class="error-message"></div>
                             <div class="sent-message">Your message has been sent. Thank you!</div>
 
-                            <button >Технические работы</button>
+                            <button type="submit"><?php echo $db->GetText('CONTACT_SEND') ?></button>
                         </div>
 
                     </div>

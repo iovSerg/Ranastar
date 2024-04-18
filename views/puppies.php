@@ -1,6 +1,6 @@
 <section id="puppies" class="portfolio">
     <div class="container section-title" data-aos="fade-up">
-        <?php echo $db->GetText('PUPPIES_TITLE');?>
+        <h2><?php echo $db->GetText('PUPPIES_TITLE');?></h2>
     </div>
     <div class="container">
         <div class="isotope-layout"  data-layout="masonry"  data-sort="original-order">
@@ -18,6 +18,10 @@
 
                     }
                 }
+                echo "<div  class=\"col-lg-4 col-md-6 portfolio-item isotope-item\">";
+                echo "<h4>{$db->GetText('puppies_about')}</h4>";
+                echo "</div>";
+
                 foreach ($puppies as $puppy) {
 
                     echo "<div  class=\"col-lg-4 col-md-6 portfolio-item isotope-item \">";

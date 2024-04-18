@@ -6,9 +6,7 @@
 
             <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
                 <div class="content px-xl-5">
-                    <?php
-                    echo $db->GetText('FAQ_DESCRIPTION');
-                    ?>
+                   <h2> <?php echo $db->GetText('FAQ_DESCRIPTION'); ?></h2>
 
                 </div>
             </div>

@@ -23,9 +23,9 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Ranastar Grand kennel</title>
 
+    <link rel="shortcut icon" href="assets/img/All/icon_b.ico" type="image/x-icon">
 
-    <link href="assets/img/All/icon_b.jpg" rel="icon">
-    <link href="assets/img/All/icon_b.jpg" rel="apple-touch-icon">
+
 
 
 
@@ -43,8 +43,6 @@
     <link href="assets/vendor/aos/aos.css" rel="stylesheet">
 
     <link href="assets/css/main.css" rel="stylesheet">
-
-
 </head>
 
 <body class="index-page" data-bs-spy="scroll" data-bs-target="#navmenu">
@@ -61,8 +59,8 @@
         require 'views/faq.php';
         require 'views/portfolio.php';
         require 'views/puppies.php';
-        require 'views/exhibitions.php';
         require  'views/graduates.php';
+        require 'views/exhibitions.php';
         require 'views/contact.php';
 ?>
 
@@ -79,91 +77,69 @@
 <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 <script src="assets/vendor/aos/aos.js"></script>
-<script src="assets/vendor/php-email-form/validate.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<script src="assets/js/ajax.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script>
+    window.onload = function () {
+        var phpVariable = "<?php echo $ex->GetID(); ?>";
+        filterSelectionEX(phpVariable);
 
-    function filterSelection(c) {
-        console.log(c);
-        $.ajax({
-            type: "POST",
-            url: 'index.php',
-            dataType: 'json',
-            data: { dog_id : c},
-            success: function(response) {
-
-            var flag = true;
-               response.forEach(function (item) {
-                   if (item && 'country' in item) {
-                       flag = false;
-                   }
-               })
-
-               flag ?  $('#responseContainer').empty() : $('#responseContainerGraduates').empty();
-
-                // Проходим по каждому элементу в массиве response и создаем соответствующую HTML-структуру
-                response.forEach(function(item) {
-                    var portfolioItem = $('<div >', {
-                        class: 'col-lg-4 col-md-6 portfolio-item isotope-item filter-' + item.filterClass + (item.isActive ? ' active' : '')
-                    });
-
-                    var img = $('<img>', {
-                        src: item.src,
-                        class: 'img-fluid',
-                        alt: ''
-                    });
-
-                    var portfolioInfo = $('<div>', {
-                        class: 'portfolio-info'
-                    });
-
-                    var h4 = $('<h4>').text(item.title);
-
-                    var a = $('<a>', {
-                        href: item.src,
-                        'data-gallery': 'portfolio-gallery-' + item.filterClass,
-                        class: 'glightbox preview-link'
-                    }).append($('<i>', {
-                        class: 'bi bi-zoom-in'
-                    }));
-
-                    portfolioInfo.append(h4, a);
-                    portfolioItem.append(img, portfolioInfo);
-
-                    flag ?  $('#responseContainer').append(portfolioItem) : $('#responseContainerGraduates').append(portfolioItem);
-
-                });
-
+        $(document).ready(function() {
+            // Плавное появление элементов после загрузки страницы
+            $('.portfolio-item').each(function(index) {
+                var $item = $(this);
+                setTimeout(function() {
+                    $item.addClass('loaded');
+                }, 100 * index); // Задержка для каждого элемента
+            });
+        });
+        $(document).ready(function() {
+            // Находим высоту содержимого внутри контейнера и применяем ее к контейнеру
+            function adjustContainerHeight() {
+                var contentHeight = $('#responseContainer').height(); // Получаем высоту содержимого
+                $('#responseContainer').css('min-height', contentHeight); // Применяем высоту к контейнеру
             }
+
+            // Вызываем функцию для коррекции высоты при загрузке страницы
+            adjustContainerHeight();
+
+            // Вызываем функцию для коррекции высоты при изменении размера окна
+            $(window).resize(function() {
+                adjustContainerHeight();
+            });
+        });
+        $(document).ready(function(){
+            $('#myForm').submit(function(event){
+                // Предотвращаем стандартное поведение отправки формы
+                event.preventDefault();
+
+                // Получаем данные формы
+                var formData = $(this).serialize();
+
+                // Отправляем AJAX запрос
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    success: function(response){
+                        $('#myForm').trigger("reset");
+
+
+                    },
+                    error: function(xhr, status, error){
+                        // Обработка ошибок, если они возникли
+                        console.error(error);
+
+                    }
+                });
+            });
         });
     }
-    $(document).ready(function() {
-        // Плавное появление элементов после загрузки страницы
-        $('.portfolio-item').each(function(index) {
-            var $item = $(this);
-            setTimeout(function() {
-                $item.addClass('loaded');
-            }, 100 * index); // Задержка для каждого элемента
-        });
-    });
-    $(document).ready(function() {
-        // Находим высоту содержимого внутри контейнера и применяем ее к контейнеру
-        function adjustContainerHeight() {
-            var contentHeight = $('#responseContainer').height(); // Получаем высоту содержимого
-            $('#responseContainer').css('min-height', contentHeight); // Применяем высоту к контейнеру
-        }
-
-        // Вызываем функцию для коррекции высоты при загрузке страницы
-        adjustContainerHeight();
-
-        // Вызываем функцию для коррекции высоты при изменении размера окна
-        $(window).resize(function() {
-            adjustContainerHeight();
-        });
-    });
 </script>
 </body>
 

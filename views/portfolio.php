@@ -5,7 +5,7 @@ require_once 'model/Dog.php';
 
 <section id="portfolio" class="portfolio" >
     <div  class="container section-title" data-aos="fade-up">
-        <?php echo $db->GetText('GALLARY_TITLE');?>
+        <h2><?php echo $db->GetText('GALLARY_TITLE');?></h2>
     </div>
     <div   id="" class="container">
         <div  class="isotope-layout"  data-layout="masonry"  data-sort="original-order">

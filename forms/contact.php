@@ -1,41 +1,51 @@
 <?php
-  /**
-  * Requires the "PHP Email Form" library
-  * The "PHP Email Form" library is available only in the pro version of the template
-  * The library should be uploaded to: vendor/php-email-form/php-email-form.php
-  * For more info and help: https://bootstrapmade.com/php-email-form/
-  */
 
-  // Replace contact@example.com with your real receiving email address
-  $receiving_email_address = 'accc32@gmail.com';
 
-  if( file_exists($php_email_form = 'assets/vendor/php-email-form/php-email-form.php' )) {
-    include( $php_email_form );
-  } else {
-    die( 'Unable to load the "PHP Email Form" Library!');
-  }
 
-  $contact = new PHP_Email_Form;
-  $contact->ajax = true;
-  
-  $contact->to = $receiving_email_address;
-  $contact->from_name = $_POST['name'];
-  $contact->from_email = $_POST['email'];
-  $contact->subject = $_POST['subject'];
+if (count($_POST) == 5) {
+    $name = '';
+    if (isset($_POST['name'])) {
+        $name = htmlspecialchars(strip_tags(trim($_POST['name'])));
+    }
+    $email = '';
+    if (isset($_POST['email'])) {
+        $email = htmlspecialchars(strip_tags(trim($_POST['email'])));
+    }
+    $subject = '';
+    if (isset($_POST['subject'])) {
+        $subject = htmlspecialchars(strip_tags(trim($_POST['subject'])));
+    }
+    $mes = '';
+    if (isset($_POST['message'])) {
+        $mes = htmlspecialchars(strip_tags(trim($_POST['message'])));
+    }
+    if(isset($_POST['send'])){
+        $send = htmlspecialchars((strip_tags(trim($_POST['send']))));
+    }
 
-  // Uncomment below code if you want to use SMTP to send emails. You need to enter your correct SMTP credentials
-  /*
-  $contact->smtp = array(
-    'host' => 'example.com',
-    'username' => 'example',
-    'password' => 'pass',
-    'port' => '587'
-  );
-  */
+    $err=array();//Массив для ошибок
+    if(empty($name) || mb_strlen($name,'UTF-8')>40){$err[]='Некорректное ИФО (более 40 символов)';}
+    if(!preg_match("/^[a-z0-9][a-z0-9\.-_]*[a-z0-9]*@([a-z0-9]+([a-z0-9-]*[a-z0-9]+)*\.)+[a-z]+/i",$email)){$err[]='Некорректный E-mail';}
+    if(empty($subject) || mb_strlen($subject,'UTF-8')>30){$err[]='Некорректная тема (более 30 символов)';}
+    if(empty($mes) || mb_strlen($mes,'UTF-8')>350){$err[]='Некорректное сообщение (более 350 символов)';}
 
-  $contact->add_message( $_POST['name'], 'From');
-  $contact->add_message( $_POST['email'], 'Email');
-  $contact->add_message( $_POST['message'], 'Message', 10);
+   
 
-  echo $contact->send();
-?>
+    if(count($err)>0){//Количество ел. в массиве больше 0 (есть ошибки)
+        echo '<p class="mes_err"><b> Исправьте следующие ошибки:</b></p>';
+        $i=0;$c=count($err);while($i<$c){
+            echo '<p class="mes_err">- '.$err[$i].'</p>';
+            $i++;}
+
+    }else{//если нет ошибок - отправляем сообщением админу
+
+        $from="=?utf-8?B?".base64_encode($email)."?="." ";
+        $headers="From: ". $from."\r\nReply-To: ".$from."\r\nContent-type: text/html; charset=utf-8\r\n";
+        $subject="=?utf-8?B?".base64_encode($subject)."?=";
+        if(mail('admin@ranastar.com', $subject,$mes, $headers)){echo $send;}
+
+
+
+
+    }
+}

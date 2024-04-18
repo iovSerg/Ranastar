@@ -20,22 +20,33 @@ if (isset($_POST['dog_id'])) {
     echo  $jsonData;
     die();
 }
-
-function GetDogArray($dog)
-{
-    $portfolioItems = array();
-    foreach ($dog as $item) {
-            foreach ($item->GetPaths() as $path) {
-                $portfolioItems[] = array(
-                    "src" => $path,
-                    "title" => $item->GetFullName(),
-                    "filterClass" => $item->GetName()
-                );
-            }
-
+/*if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Проверка наличия данных в полях
+    if (empty($_POST["name"]) || empty($_POST["email"]) || empty($_POST["message"])) {
+        echo "Пожалуйста, заполните все поля.";
+        exit; // Останавливаем выполнение скрипта
     }
-    return $portfolioItems;
-}
+
+    $to = "ваш_email@example.com";
+    $subject = "Обратная связь с сайта";
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $message = $_POST["message"];
+
+    // Проверка валидности email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Пожалуйста, введите корректный email адрес.";
+        exit; // Останавливаем выполнение скрипта
+    }
+
+    $headers = "From: $name <$email>";
+
+    if (mail($to, $subject, $message, $headers)) {
+        echo "Ваше сообщение ыс яыс  успешно отправлено!";
+    } else {
+        echo "Что-то пошло не так. Сообщение не было отправлено.";
+    }
+}*/
 
 
 

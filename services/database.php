@@ -55,9 +55,9 @@ class DataBase
     public function GetText($key)
     {
         if (array_key_exists($key, $this->lang_data)) {
-            return $this->lang_data[$key];
+            return  $this->lang_data[$key];
         } else {
-            return ""; // Возвращаем какое-то стандартное значение или сообщение
+            return "";
         }
     }
     public  function GetKennelDogs()
@@ -91,7 +91,7 @@ class DataBase
                     $portfolioItems[] = array(
                     "src" => $path,
                     "title" => $item->GetFullName(),
-                    "city" => $item->GetCity(),
+                    "city" => $this->GetText($item->GetCity()),
                     "country" => $item->GetCountry(),
                     "filterClass" => $item->GetName()
                 );
