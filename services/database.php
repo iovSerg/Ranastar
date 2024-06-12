@@ -6,10 +6,10 @@ require_once 'model/Exhibitions.php';
 class DataBase
 {
     private $mysqli;
-    private $userName = "ranastar";
-    private $userPass = "Db123456!";
-    private $serverName = "localhost";
-    private $database = "ranastar";
+    private $userName = "******";
+    private $userPass = "*****";
+    private $serverName = "******";
+    private $database = "******";
     private $defaultLang =  ['2'=>'en'];
 
     //Локализация
